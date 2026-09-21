@@ -16,13 +16,13 @@ import {
 	FieldLabel,
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-// import { authClient } from "@/lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 import z from "zod";
 
 export default function SignUpPage() {
@@ -38,8 +38,22 @@ export default function SignUpPage() {
 	});
 
 	function onSubmit(data: z.infer<typeof signUpSchema>) {
-		// Do something with the form values.
-		console.log(data)
+		startTransition(async () => {
+			await authClient.signUp.email({
+				email: data.email,
+				name: data.name,
+				password: data.password,
+				fetchOptions: {
+					onSuccess: () => {
+						toast.success("Account created successfully");
+						router.push("/");
+					},
+					onError: (error) => {
+						toast.error(error.error.message);
+					},
+				},
+			});
+		});
 	}
 
 	return (
