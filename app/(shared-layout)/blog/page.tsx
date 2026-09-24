@@ -7,6 +7,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 
+export const dynamic = "force-static";
+
 export default function BlogPage() {
   return (
     <div className="py-12">
@@ -46,7 +48,7 @@ async function LoadBlogList() {
             />
           </div>
 
-          <CardContent>
+          <CardContent className="min-h-24">
             <Link href={`/blog/${post._id}`}>
               <h1 className="text-2xl font-bold hover:text-primary">
                 {post.title}
