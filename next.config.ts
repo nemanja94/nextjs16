@@ -8,7 +8,17 @@ const nextConfig: NextConfig = {
         protocol: "https",
         port: "",
       },
+      {
+        hostname: "artful-cobra-592.eu-west-1.convex.cloud",
+        protocol: "https",
+        port: "",
+      },
     ],
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
   },
 };
 
