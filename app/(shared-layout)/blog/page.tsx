@@ -1,14 +1,12 @@
-import type { Metadata } from "next";
 import { buttonVariants } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
+import type { Metadata } from "next";
+import { cacheLife, cacheTag } from "next/cache";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
-
-export const dynamic = "force-static";
 
 export const metadata: Metadata = {
   title: "Blog | NextJS 16 tut",
@@ -28,15 +26,18 @@ export default function BlogPage() {
         </p>
       </div>
 
-      <Suspense fallback={<SkeletonLoadingUi />}>
-        <LoadBlogList />
-      </Suspense>
+      {/*<Suspense fallback={<SkeletonLoadingUi />}>*/}
+      <LoadBlogList />
+      {/*</Suspense>*/}
     </div>
   );
 }
 
 async function LoadBlogList() {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
+  "use cache";
+  cacheLife("hours");
+  cacheTag("blog");
   const data = await fetchQuery(api.posts.getPosts);
 
   return (
