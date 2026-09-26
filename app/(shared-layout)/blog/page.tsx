@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { buttonVariants } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -8,6 +9,12 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 export const dynamic = "force-static";
+
+export const metadata: Metadata = {
+  title: "Blog | NextJS 16 tut",
+  description: "Read our latest articles and Insights",
+  category: "Web development",
+};
 
 export default function BlogPage() {
   return (
