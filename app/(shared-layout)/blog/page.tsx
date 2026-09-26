@@ -36,7 +36,7 @@ export default function BlogPage() {
 }
 
 async function LoadBlogList() {
-  // await new Promise((resolve) => setTimeout(resolve, 5000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
   const data = await fetchQuery(api.posts.getPosts);
 
   return (
@@ -52,6 +52,8 @@ async function LoadBlogList() {
               alt="image"
               fill
               className="rounded-t-lg object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              loading="eager"
             />
           </div>
 
